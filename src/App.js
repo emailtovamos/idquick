@@ -7,7 +7,7 @@ import './App.css';
 
 // Initialize web3 instance
 const web3 = new Web3(Web3.givenProvider);
-const backendurl = 'https://idquick-backend-satodas-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+const backendurl = 'https://idquick-backend-2-satodas-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
 
 const App = () => {
     const [account, setAccount] = useState(null); // State to store user's account
