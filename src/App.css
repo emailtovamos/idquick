@@ -16,14 +16,16 @@
 }
 
 /* Center header within its container */
-.app-header {
+.app-header h1 {
   width: 100%; /* Take the full width to center text properly */
   text-align: center; /* Center the text within the header */
   margin-bottom: 30px; /* Keep your existing margin-bottom */
-  background-color: #2dd830;
+  background-color: #e7b13d;
   color: white;
   padding: 2rem; /* More padding for better spacing */
   font-size: 2.5rem; /* Larger font size for header */
+  font-weight: 700; /* Extra bold font-weight */
+  margin-bottom: 1rem; /* Spacing below the heading */
 }
 
 /* Maintain the full-width inputs and centering */
@@ -60,10 +62,12 @@ input[type="text"] {
 
 /* Structural adjustments */
 .content, .fetch-section, .account-info, .data-form {
-  text-align: center; /* Center-align the text for all these elements */
-  width: 90%; /* Match input width for consistency */
-  margin: 0 auto; /* Center the divs horizontally */
+  font-family: 'Open Sans', sans-serif; /* Assuming you've chosen Open Sans */
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
   margin-bottom: 2rem;
+  font-size: 1rem; /* Start with the default size for content */
 }
 
 .fetched-data {
