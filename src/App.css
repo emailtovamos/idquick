@@ -1,17 +1,39 @@
-/* Adjustments to App.css */
+/* Ensure the container is full height and uses flexbox to center its children */
 .app-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center children vertically in the container */
+  align-items: center; /* Center children horizontally */
+  min-height: 100vh; /* Minimum height of the viewport */
+  margin: 0; /* Reset margin to remove any default spacing */
+  padding: 40px; /* Add padding as needed */
   font-family: 'Arial', sans-serif;
+  color: #333;
   margin: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   overflow: hidden; /* Ensures the shadow doesn't get cut off */
 }
 
+/* Center header within its container */
 .app-header {
-  background-color: #282c34;
+  width: 100%; /* Take the full width to center text properly */
+  text-align: center; /* Center the text within the header */
+  margin-bottom: 30px; /* Keep your existing margin-bottom */
+  background-color: #2dd830;
   color: white;
   padding: 2rem; /* More padding for better spacing */
   font-size: 2.5rem; /* Larger font size for header */
+}
+
+/* Maintain the full-width inputs and centering */
+.data-input, .access-code-input {
+  display: block; /* Make input block to fill width */
+  width: 90%; /* Adjust width as necessary, considering padding and borders */
+  margin: 0 auto 20px; /* Auto margins for horizontal centering, with a margin-bottom */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* Interactive elements consistent styling */
@@ -38,14 +60,19 @@ input[type="text"] {
 
 /* Structural adjustments */
 .content, .fetch-section, .account-info, .data-form {
+  text-align: center; /* Center-align the text for all these elements */
+  width: 90%; /* Match input width for consistency */
+  margin: 0 auto; /* Center the divs horizontally */
   margin-bottom: 2rem;
 }
 
 .fetched-data {
+  text-align: center; /* Center-align the text inside fetched data box */
+  width: 90%; /* You may adjust width as necessary */
+  margin: 20px auto; /* Center horizontally with automatic margins */
+  padding: 10px;
   background-color: #f7f7f7;
   border-left: 5px solid #4CAF50;
-  padding: 1rem;
-  margin-top: 1rem;
 }
 
 /* Add more styling as necessary... */
