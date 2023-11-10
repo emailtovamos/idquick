@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Web3 from 'web3';
 import axios from 'axios';
+import './App.css';
 
 // Initialize web3 instance
 const web3 = new Web3(Web3.givenProvider);
@@ -69,33 +70,43 @@ const fetchDataHandler = async () => {
 };
 
 return (
-  <div>
-      <h1>Healthcare Emergency Data App</h1>
+  <div className="app-container">
+      <header className="app-header">
+        <h1>Healthcare Emergency Data App</h1>
+      </header>
       {!account ? (
-          <button onClick={connectWalletHandler}>Connect to MetaMask</button>
+          <button className="connect-button" onClick={connectWalletHandler}>
+            Connect to MetaMask
+          </button>
       ) : (
-          <div>
-              <p>Connected Account: {account}</p>
-              <form onSubmit={submitDataHandler}>
+          <div className="content">
+              <div className="account-info">
+                <p>Connected Account: {account}</p>
+              </div>
+              <form onSubmit={submitDataHandler} className="data-form">
                   <input
                       type="text"
                       value={data}
                       onChange={(e) => setData(e.target.value)}
                       placeholder="Enter your emergency data"
+                      className="data-input"
                   />
-                  <button type="submit">Submit Data</button>
+                  <button type="submit" className="submit-button">Submit Data</button>
               </form>
-              <button onClick={generateAccessCodeHandler}>Generate Access Code</button>
-              <div>
+              <button className="access-code-button" onClick={generateAccessCodeHandler}>
+                Generate Access Code
+              </button>
+              <div className="fetch-section">
                   <input
                       type="text"
                       value={accessCode}
                       onChange={(e) => setAccessCode(e.target.value)}
                       placeholder="Enter access code to fetch data"
+                      className="access-code-input"
                   />
-                  <button onClick={fetchDataHandler}>Fetch Data</button>
-                  {fetchedData && <p>Fetched Data: {fetchedData}</p>}
+                  <button className="fetch-button" onClick={fetchDataHandler}>Fetch Data</button>
               </div>
+              {fetchedData && <div className="fetched-data"><p>{fetchedData}</p></div>}
           </div>
       )}
   </div>
