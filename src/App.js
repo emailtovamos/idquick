@@ -68,51 +68,39 @@ const fetchDataHandler = async () => {
   }
 };
 
-    return (
-        <div>
-            <h1>Healthcare Emergency Data App</h1>
-            {!account && (
-                <button onClick={connectWalletHandler}>Connect to MetaMask</button>
-            )}
-            {account && (
-                <div>
-                    <p>Connected Account: {account}</p>
-                    <form onSubmit={submitDataHandler}>
-                        <input
-                            type="text"
-                            value={data}
-                            onChange={(e) => setData(e.target.value)}
-                            placeholder="Enter your emergency data"
-                        />
-                        <button type="submit">Submit Data</button>
-                    </form>
-                    <button onClick={generateAccessCodeHandler}>Generate Access Code</button>
-                    {accessCode && <p>Access Code: {accessCode}</p>}
-                    <div>
-                        <input
-                            type="text"
-                            value={accessCode}
-                            onChange={(e) => setAccessCode(e.target.value)}
-                            placeholder="Enter access code to fetch data"
-                        />
-                        <button onClick={fetchDataHandler}>Fetch Data</button>
-                    </div>
-                </div>
-            )}
-            {accessCode && <p>Access Code: {accessCode}</p>}
-            <div>
-            <input
-                type="text"
-                value={accessCode}
-                onChange={(e) => setAccessCode(e.target.value)}
-                placeholder="Enter access code to fetch data"
-            />
-            <button onClick={fetchDataHandler}>Fetch Data</button>
-            {/* Display fetched data here */}
-            {fetchedData && <p>Fetched Data: {fetchedData}</p>}
-            </div>
-        </div>
-    );
+return (
+  <div>
+      <h1>Healthcare Emergency Data App</h1>
+      {!account ? (
+          <button onClick={connectWalletHandler}>Connect to MetaMask</button>
+      ) : (
+          <div>
+              <p>Connected Account: {account}</p>
+              <form onSubmit={submitDataHandler}>
+                  <input
+                      type="text"
+                      value={data}
+                      onChange={(e) => setData(e.target.value)}
+                      placeholder="Enter your emergency data"
+                  />
+                  <button type="submit">Submit Data</button>
+              </form>
+              <button onClick={generateAccessCodeHandler}>Generate Access Code</button>
+              <div>
+                  <input
+                      type="text"
+                      value={accessCode}
+                      onChange={(e) => setAccessCode(e.target.value)}
+                      placeholder="Enter access code to fetch data"
+                  />
+                  <button onClick={fetchDataHandler}>Fetch Data</button>
+                  {fetchedData && <p>Fetched Data: {fetchedData}</p>}
+              </div>
+          </div>
+      )}
+  </div>
+);
+
 };
 
 export default App;
