@@ -11,6 +11,7 @@ const App = () => {
     const [account, setAccount] = useState(null); // State to store user's account
     const [data, setData] = useState(''); // State to store user input data
     const [accessCode, setAccessCode] = useState(''); // State to store the generated access code
+    const [fetchedData, setFetchedData] = useState(null); // To access data of someone using the access code
 
     // Function to handle account connection
     const connectWalletHandler = async () => {
@@ -27,9 +28,10 @@ const App = () => {
         event.preventDefault();
         // Call the backend to store the data
         try {
-            const response = await axios.post('/register', {
+            const response = await axios.post('http://localhost:8080/register', {
                 userAddress: account,
                 userData: data,
+                userAccessCode: accessCode,
             });
             console.log('Data submitted:', response.data);
             // Reset data input
@@ -43,7 +45,7 @@ const App = () => {
     // Function for access code generation - calls the backend which interacts with the smart contract
     const generateAccessCodeHandler = async () => {
         try {
-            const response = await axios.post('/generate-access-code', {
+            const response = await axios.post('http://localhost:8080/generate-access-code', {
                 userAddress: account,
             });
             setAccessCode(response.data.accessCode);
@@ -54,15 +56,17 @@ const App = () => {
     };
 
     // Function to fetch data using the access code
-    const fetchDataHandler = async () => {
-        try {
-            const response = await axios.get(`/fetch-data?accessCode=${accessCode}`);
-            console.log('Data fetched:', response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            // Handle errors here
-        }
-    };
+const fetchDataHandler = async () => {
+  try {
+      const response = await axios.get(`http://localhost:8080/fetch-data?accessCode=${accessCode}`);
+      // Update state with the fetched data
+      setFetchedData(response.data.dataHash); // Assuming 'dataHash' is the key in response JSON containing the data
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle errors here, such as updating the state to display an error message
+      setFetchedData("Error fetching data. Please try again."); // You can set a state to show error or a message directly
+  }
+};
 
     return (
         <div>
@@ -95,6 +99,18 @@ const App = () => {
                     </div>
                 </div>
             )}
+            {accessCode && <p>Access Code: {accessCode}</p>}
+            <div>
+            <input
+                type="text"
+                value={accessCode}
+                onChange={(e) => setAccessCode(e.target.value)}
+                placeholder="Enter access code to fetch data"
+            />
+            <button onClick={fetchDataHandler}>Fetch Data</button>
+            {/* Display fetched data here */}
+            {fetchedData && <p>Fetched Data: {fetchedData}</p>}
+            </div>
         </div>
     );
 };
