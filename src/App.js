@@ -7,6 +7,7 @@ import './App.css';
 
 // Initialize web3 instance
 const web3 = new Web3(Web3.givenProvider);
+const backendurl = 'https://idquick-backend-satodas-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
 
 const App = () => {
     const [account, setAccount] = useState(null); // State to store user's account
@@ -29,7 +30,7 @@ const App = () => {
         event.preventDefault();
         // Call the backend to store the data
         try {
-            const response = await axios.post('http://localhost:8080/register', {
+            const response = await axios.post(backendurl + '/register', {
                 userAddress: account,
                 userData: data,
                 userAccessCode: accessCode,
@@ -46,7 +47,7 @@ const App = () => {
     // Function for access code generation - calls the backend which interacts with the smart contract
     const generateAccessCodeHandler = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/generate-access-code', {
+            const response = await axios.post(backendurl +'/generate-access-code', {
                 userAddress: account,
             });
             setAccessCode(response.data.accessCode);
@@ -59,7 +60,7 @@ const App = () => {
     // Function to fetch data using the access code
 const fetchDataHandler = async () => {
   try {
-      const response = await axios.get(`http://localhost:8080/fetch-data?accessCode=${accessCode}`);
+      const response = await axios.get(backendurl +`/fetch-data?accessCode=${accessCode}`);
       // Update state with the fetched data
       setFetchedData(response.data.dataHash); // Assuming 'dataHash' is the key in response JSON containing the data
   } catch (error) {
