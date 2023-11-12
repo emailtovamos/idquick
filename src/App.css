@@ -6,26 +6,27 @@
   align-items: center; /* Center children horizontally */
   min-height: 100vh; /* Minimum height of the viewport */
   margin: 0; /* Reset margin to remove any default spacing */
-  padding: 40px; /* Add padding as needed */
+  padding: 20px; /* Add padding as needed */
   font-family: 'Arial', sans-serif;
   color: #333;
   margin: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   overflow: hidden; /* Ensures the shadow doesn't get cut off */
+  margin-top: 0;
 }
 
 /* Center header within its container */
 .app-header h1 {
   width: 100%; /* Take the full width to center text properly */
   text-align: center; /* Center the text within the header */
-  margin-bottom: 30px; /* Keep your existing margin-bottom */
   background-color: #e7b13d;
   color: white;
-  padding: 2rem; /* More padding for better spacing */
+  padding:  2rem; /* More padding for better spacing */
   font-size: 2.5rem; /* Larger font size for header */
   font-weight: 700; /* Extra bold font-weight */
   margin-bottom: 1rem; /* Spacing below the heading */
+  margin-top: 0;
 }
 
 /* Maintain the full-width inputs and centering */
@@ -80,3 +81,13 @@ input[type="text"] {
 }
 
 /* Add more styling as necessary... */
+/* Adjustments for all input types including date type inputs */
+input[type="text"], input[type="date"] {
+  padding: 0.875rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: calc(100% - 2rem); /* Full width minus padding and border */
+  display: block; /* Make input block to fill width */
+  margin-bottom: 20px; /* Consistent margin for all input types */
+}

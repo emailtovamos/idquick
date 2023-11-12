@@ -7,11 +7,20 @@ import './App.css';
 
 // Initialize web3 instance
 const web3 = new Web3(Web3.givenProvider);
-const backendurl = 'https://idquick-backend-satodas-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+var backendurl = 'https://idquick-backend-satodas-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com'
+// backendurl = 'http://localhost:8080'
 
 const App = () => {
     const [account, setAccount] = useState(null); // State to store user's account
     const [data, setData] = useState(''); // State to store user input data
+    // Use a state object to store multiple pieces of data
+    const [formData, setFormData] = useState({
+      name: '',
+      dob: '',
+      address: '',
+      nationality: '',
+      miscellaneous: '',
+    });
     const [accessCode, setAccessCode] = useState(''); // State to store the generated access code
     const [fetchedData, setFetchedData] = useState(null); // To access data of someone using the access code
 
@@ -25,24 +34,31 @@ const App = () => {
         }
     };
 
-    // Function to handle data submission
-    const submitDataHandler = async (event) => {
-        event.preventDefault();
-        // Call the backend to store the data
-        try {
-            const response = await axios.post(backendurl + '/register', {
-                userAddress: account,
-                userData: data,
-                userAccessCode: accessCode,
-            });
-            console.log('Data submitted:', response.data);
-            // Reset data input
-            setData('');
-        } catch (error) {
-            console.error('Error submitting data:', error);
-            // Handle errors here, such as displaying a notification to the user
-        }
-    };
+    // Modify this function to send an object with all form data
+  const submitDataHandler = async (event) => {
+    event.preventDefault();
+    const combinedData = `Name: ${formData.name}|DOB: ${formData.dob}|Address: ${formData.address}|Nationality: ${formData.nationality}|Miscellaneous: ${formData.miscellaneous}`;
+    try {
+      const response = await axios.post(backendurl + '/register', {
+        userAddress: account,
+        userData: combinedData,
+        userAccessCode: accessCode,
+      });
+      console.log('Data submitted:', response.data);
+      setFormData({ name: '', dob: '', address: '', nationality: '', miscellaneous: '' }); // Reset form data
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
+
+  // Handle change for each input
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
     // Function for access code generation - calls the backend which interacts with the smart contract
     const generateAccessCodeHandler = async () => {
@@ -85,14 +101,42 @@ return (
                 <p>Connected Account: {account}</p>
               </div>
               <form onSubmit={submitDataHandler} className="data-form">
-                  <input
-                      type="text"
-                      value={data}
-                      onChange={(e) => setData(e.target.value)}
-                      placeholder="Enter your emergency data"
-                      className="data-input"
-                  />
-                  <button type="submit" className="submit-button">Submit Data</button>
+                <input
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                />
+                <input
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  placeholder="Date of Birth"
+                  type="date"
+                />
+                <input
+                  name="address"
+                  type="text"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                />
+                <input
+                  name="nationality"
+                  type="text"
+                  value={formData.nationality}
+                  onChange={handleChange}
+                  placeholder="Nationality"
+                />
+                <input
+                  name="miscellaneous"
+                  type="text"
+                  value={formData.miscellaneous}
+                  onChange={handleChange}
+                  placeholder="Miscellaneous"
+                />
+                <button type="submit">Submit Data</button>
               </form>
               <button className="access-code-button" onClick={generateAccessCodeHandler}>
                 Generate Access Code
