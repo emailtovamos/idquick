@@ -1,3 +1,39 @@
+# IDQuick
+
+The problem this app solves is that when we call healthcare emergency, they first ask lots of identifying questions to us before actually asking the symptoms. 
+
+What if there's a way to store these data for individuals in a decentralised way so that only the actual user can see them? Also the user can give access to someone else to view the same data e.g. if I call the health emergency then I just give a code or something and they feed it in the app and get my identifying info. This will save valuable time. 
+
+![alt text](idquick-front.png)
+
+Run `npm start` to start it locally. Assuming you are also running the backend and postgresql server. 
+
+Also set `backendurl = 'http://localhost:8080'` in the App.js for local running. I will of course make it in a config file later.
+
+### Steps to run backend
+
+`git clone https://github.com/emailtovamos/idquick-backend.git`
+
+`w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")` in `enableCORS()` function 
+
+&
+
+`dsn = "host=localhost user=newuser password=password dbname=satyajit port=5432 sslmode=disable TimeZone=Asia/Shanghai"`
+
+Then 
+
+`go run main.go`
+
+### Steps to run postgresql server
+
+`brew install postgresql`
+
+`brew services start postgresql`
+
+`createdb satyajit`
+
+`psql -U newuser -d satyajit`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
